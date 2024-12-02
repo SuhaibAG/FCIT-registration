@@ -4,6 +4,9 @@
     margin-left: 18vw;
     border: 1px solid black;
 }
+label{
+    color:aliceblue;
+}
 input{
     margin-top: 1vw;
     margin-bottom: 1vw;

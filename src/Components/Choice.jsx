@@ -27,7 +27,7 @@ const Choice = () =>{
       //this function takes in the course name from the input
       const [courseOptions, setCourseOptions] = useState([]);
       const [courseName, setCourseName] = useState("");
-      
+
       const SearchCourse = () =>{
       const updatedCourseOptions = [...courseOptions]
 
@@ -44,8 +44,15 @@ const Choice = () =>{
         setCourseOptions(updatedCourseOptions)
         console.log(courseOptions)
       }
+      
+
+    
+      const [mySchedule, setmySchedule] = useState([]);
 
       const addToSchedule = (courseCode) =>{
+        const updatedSchedule = [...courseOptions]
+        
+        
         console.log(courseCode)
       }
 
