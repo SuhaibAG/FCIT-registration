@@ -49,11 +49,19 @@ const Choice = () =>{
     
       const [mySchedule, setmySchedule] = useState([]);
 
-      const addToSchedule = (courseCode) =>{
-        const updatedSchedule = [...courseOptions]
-        
-        
-        console.log(courseCode)
+      const addToSchedule = (Code) =>{
+        const updatedSchedule = [...mySchedule]
+        courses.forEach(element => {
+          if(element.Code === Code && !updatedSchedule.includes(element)){
+            updatedSchedule.push(element)
+          }
+          else if (element.Code === Code && updatedSchedule.includes(element)) {
+            //remove element
+          }
+        });
+
+        setmySchedule(updatedSchedule)
+        console.log(mySchedule)
       }
 
     return(
