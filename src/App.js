@@ -1,5 +1,6 @@
 import Header from './Components/Header';
 import Schedule from './Components/Schedule';
+
 import './App.css';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <div className="App">
       <Header/>
       <Schedule/>
+      
     </div>
   );
 }

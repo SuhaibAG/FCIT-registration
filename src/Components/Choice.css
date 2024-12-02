@@ -1,0 +1,11 @@
+.Choice-Container{
+    margin-top: 2vh;
+    margin-right: 18vw;
+    margin-left: 18vw;
+    border: 1px solid black;
+}
+input{
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    margin-right: 2vw;
+}
