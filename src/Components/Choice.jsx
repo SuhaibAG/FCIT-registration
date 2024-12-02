@@ -4,9 +4,11 @@ import './Choice.css'
 import courseCSV from './courses.csv'
 import Papa from 'papaparse'
 
+
 const Choice = () =>{
+
+    //this function fetches the csv
     const [courses, setCourses] = useState([]);
-    //code to fetch the csv
     useEffect(() => {
         fetch(courseCSV)
           .then((response) => response.text())
@@ -22,26 +24,30 @@ const Choice = () =>{
       }, []);
 
 
-
+      //this function takes in the course name from the input
       const [courseOptions, setCourseOptions] = useState([]);
       const [courseName, setCourseName] = useState("");
-
-
+      
       const SearchCourse = () =>{
-        const updatedCourseOptions = [...courseOptions]
-        courses.forEach(element => {
-            if (element.Course_Name.includes(courseName) ){
+      const updatedCourseOptions = [...courseOptions]
+
+      courses.forEach(element => {
+          const cleanCSVName = element.Course_Name.replace(/\s+/g, "").toLowerCase();
+          const cleanCourseName = courseName.replace(/\s+/g, "").toLowerCase();
+
+            if (cleanCSVName.includes(cleanCourseName) && !updatedCourseOptions.includes(element)) {
                 updatedCourseOptions.push(element)
             } 
         });
+
+
         setCourseOptions(updatedCourseOptions)
         console.log(courseOptions)
       }
 
-    
-
-    
-
+      const addToSchedule = (courseCode) =>{
+        console.log(courseCode)
+      }
 
     return(
             <div className="Choice-Container">
@@ -55,10 +61,13 @@ const Choice = () =>{
                 <div>    
                     {courseOptions.map((c, Index) => (
                         <div className={c.Course_Name}>
-                            <p>{c.Course_Name}</p>
+                            <label>{c.Code} | {c.Course_Name}  | {c.Teacher}</label>
                             <input
-                            type="radio">
+                            value={c.Code}
+                            type="checkbox"
+                            onChange={(e) => addToSchedule(e.target.value)}>
                             </input>
+
                         </div>
                     ))}
                 </div>
