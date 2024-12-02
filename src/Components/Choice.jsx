@@ -52,11 +52,20 @@ const Choice = () =>{
       const addToSchedule = (Code) =>{
         const updatedSchedule = [...mySchedule]
         courses.forEach(element => {
-          if(element.Code === Code && !updatedSchedule.includes(element)){
-            updatedSchedule.push(element)
+          if(element.Code === Code && !mySchedule.includes(element)){
+            mySchedule.forEach(elem =>{
+              if(elem.Days.includes(element.Days) || element.Days.includes(elem.Days)){
+                if(){
+                  
+                }
+              }
+
+            })
+          
           }
           else if (element.Code === Code && updatedSchedule.includes(element)) {
             //remove element
+           updatedSchedule.push(element)
           }
         });
 
