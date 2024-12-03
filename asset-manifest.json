@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/FCIT-registration/static/css/main.6f2d856d.css",
-    "main.js": "/FCIT-registration/static/js/main.233d412b.js",
+    "main.css": "/FCIT-registration/static/css/main.eaa7d79c.css",
+    "main.js": "/FCIT-registration/static/js/main.eedaa05f.js",
     "static/js/453.b4c4cabd.chunk.js": "/FCIT-registration/static/js/453.b4c4cabd.chunk.js",
     "static/media/courses.csv": "/FCIT-registration/static/media/courses.b2d7a0fa69ff9b749745.csv",
     "index.html": "/FCIT-registration/index.html",
-    "main.6f2d856d.css.map": "/FCIT-registration/static/css/main.6f2d856d.css.map",
-    "main.233d412b.js.map": "/FCIT-registration/static/js/main.233d412b.js.map",
+    "main.eaa7d79c.css.map": "/FCIT-registration/static/css/main.eaa7d79c.css.map",
+    "main.eedaa05f.js.map": "/FCIT-registration/static/js/main.eedaa05f.js.map",
     "453.b4c4cabd.chunk.js.map": "/FCIT-registration/static/js/453.b4c4cabd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6f2d856d.css",
-    "static/js/main.233d412b.js"
+    "static/css/main.eaa7d79c.css",
+    "static/js/main.eedaa05f.js"
   ]
 }
