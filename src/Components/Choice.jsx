@@ -157,10 +157,10 @@ const Choice = () =>{
     const getLength = (start, end) =>{
             const length =  end.split(" ")[0].replace(":", "") - start.split(" ")[0].replace(":", "") 
             if(length == 50){
-                return 4;
+                return 2;
             }
-            else if(length === 120){
-                return 15
+            else if(length == 120){
+                return 5
             }
 
         }
@@ -170,12 +170,26 @@ const Choice = () =>{
             const minutes = time % 100           
             const decimalMinutes = minutes / 60
 
-            return hours + decimalMinutes - 7
-
+            
+            switch(hours + decimalMinutes) {
+                case 8.00:
+                  return 8;
+                case 9:
+                  return 14;
+                case 'T':
+                  return 50;
+                case 'W':
+                  return 66.3;
+                case 'R':
+                  return 82.3;
+                default:
+                  return null;
+              }
         }
-
+        
+        const positions = [3.8, ]
     return(
-            <div>
+            <div className="parent">
                 <div className="schedule-container">
                     <Schedule/>
                     {mySchedule.map((clasOBJ, index) =>(
@@ -184,11 +198,11 @@ const Choice = () =>{
                         {clasOBJ.Days.split("").map((day, ind) =>(
                             <div className="course-input"
                             style={{
-                                height:`${getLength(clasOBJ.StartTime, clasOBJ.EndTime) * 0.1}vh`,
-                                top: `${getStart(clasOBJ.StartTime) * 3.3}vh`, 
+                                height:`${getLength(clasOBJ.StartTime, clasOBJ.EndTime)}%`,
+                                top: `${getStart(clasOBJ.StartTime)}%`, 
                                 left: `${getDay(day)}%`, 
                               }}>
-                                {clasOBJ.Course_Name +getLength(clasOBJ.StartTime, clasOBJ.EndTime)}
+                                {clasOBJ.Course_Name}
                             </div>
                         ))}
                         
@@ -221,7 +235,7 @@ const Choice = () =>{
                     <div>    
                         {courseOptions.map((c, Index) => (
                             <div className={c.Course_Name}>
-                                <label>{c.Code} | {c.Course_Name}  | {c.Teacher}</label>
+                                <label>{c.Code} | {c.StartTime} | {c.Course_Name}</label>
                                 <input
                                 value={c.Code}
                                 type="checkbox"

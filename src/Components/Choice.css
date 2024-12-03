@@ -20,16 +20,15 @@ input{
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    z-index: 10;
+    z-index: 1;
     font-size: 1vw; 
-    top: 6.25%;
-    left: 17.7%;
     white-space: nowrap; 
     overflow: hidden; 
-    text-align: center;
+    margin: 0;
     }
 .schedule-container{
     position: relative;
+    flex-wrap: wrap;
     display: flex;
     justify-content: center;  
     align-items: flex-start;  
@@ -38,4 +37,8 @@ input{
     padding: 10px;  
     box-sizing: border-box; 
     margin: auto;
+}
+.parent{
+    height: 70vh;
+    
 }
