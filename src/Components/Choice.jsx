@@ -5,7 +5,7 @@ import courseCSV from './courses.csv'
 import Papa from 'papaparse'
 
 
-const Choice = () =>{
+const Choice = () => {
 
     //this function fetches the csv
     const [courses, setCourses] = useState([]);
@@ -31,7 +31,6 @@ const Choice = () =>{
       //this function takes in the course name from the input
       const [courseOptions, setCourseOptions] = useState([]);
       const [courseName, setCourseName] = useState("");
-
       const SearchCourse = () =>{
       const updatedCourseOptions = [...courseOptions]
       courses.forEach(element => {
@@ -42,7 +41,7 @@ const Choice = () =>{
             } 
         });
         setCourseOptions(updatedCourseOptions)
-        console.log(updatedCourseOptions)
+        console.log(courseOptions)
       }
     
       const [mySchedule, setmySchedule] = useState([]);
@@ -157,7 +156,6 @@ const Choice = () =>{
                 return 5
             }
         }
-
     const getStart = (start) =>{
             const time =  start.split(" ")[0].replace(":", "")
             const hours = Math.floor(time / 100)
@@ -183,7 +181,6 @@ const Choice = () =>{
                     
         }
     }   
-
     return(
             <div className="parent">
                 <div className="schedule-container">
@@ -196,9 +193,7 @@ const Choice = () =>{
                                 height:`${getLength(clasOBJ.StartTime, clasOBJ.EndTime)}%`,
                                 top: `${getStart(clasOBJ.StartTime) * 6.23}%`, 
                                 left: `${getDay(day)}%`, 
-                              }
-                                
-                              }>
+                              }}>
                                 {clasOBJ.Course_Name}
                             </div>
                         ))}
@@ -234,3 +229,5 @@ const Choice = () =>{
 }
 
 export default Choice;
+
+
