@@ -1,7 +1,7 @@
 import './Schedule.css'
 const Schedule = () =>{
     const days = ['','Sun','Mon', 'Tue', 'Wed','Thr'];
-    const number_rows = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+    const number_rows = [8 + " AM", 9 + " AM", 10 + " AM", 11 + " AM", 12 + " PM", 1 + " PM", 2 + " PM", 3 + " PM", 4 + " PM", 5 + " PM", 6 + " PM", 7 + " PM", 8 + " PM", 9 + " PM", 10 + " PM"];
     return(
         <div>
             <table>

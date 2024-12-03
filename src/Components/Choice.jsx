@@ -28,6 +28,8 @@ const Choice = () => {
         setmySchedule([])
         setCourseName("");
       };
+
+      const [conflictMessages, setConflictMessages] = useState([]);
       
       //this function takes in the course name from the input
       const [courseOptions, setCourseOptions] = useState([]);
@@ -42,12 +44,12 @@ const Choice = () => {
             } 
         });
         setCourseOptions(updatedCourseOptions)
-        console.log(courseOptions)
       }
     
       const [mySchedule, setmySchedule] = useState([]);
       const addToSchedule = (Code, isChecked) => {
         const updatedSchedule = [...mySchedule];
+        let updatedConflicts = [...conflictMessages];
     
         if (isChecked) {
             // Add the course if checked
@@ -67,7 +69,10 @@ const Choice = () => {
                                 elem.StartTime.split(" ")[1] === element.StartTime.split(" ")[1] &&
                                 elem.EndTime.split(" ")[1] === element.EndTime.split(" ")[1]) {
                                 conflict = true;
-                                console.log("Lecture time conflict detected with" + elem.Course_Name);
+                                const conflictMessage = "Lecture time conflict detected with" + elem.Course_Name + '|' + elem.Code + '|' +element.Code;
+                                if (!updatedConflicts.includes(conflictMessage)) {
+                                updatedConflicts.push(conflictMessage);
+                            }
                             }
                             
                             if (elem.LabStart.split(" ")[0].replace(":", "") <= element.LabEnd.split(" ")[0].replace(":", "") &&
@@ -75,7 +80,10 @@ const Choice = () => {
                                 elem.LabStart.split(" ")[1] === element.LabStart.split(" ")[1] &&
                                 elem.LabEnd.split(" ")[1] === element.LabEnd.split(" ")[1]) {
                                 conflict = true;
-                                console.log("Lab time conflict detected with" + elem.Course_Name);
+                                const conflictMessage = "Lab time conflict detected with" + elem.Course_Name + '|' + elem.Code + '|' +element.Code;
+                                if (!updatedConflicts.includes(conflictMessage)) {
+                                updatedConflicts.push(conflictMessage);
+                            }
                             }
                             
                             if (elem.LabStart.split(" ")[0].replace(":", "") <= element.EndTime.split(" ")[0].replace(":", "") &&
@@ -83,7 +91,10 @@ const Choice = () => {
                                 elem.LabStart.split(" ")[1] === element.StartTime.split(" ")[1] &&
                                 elem.LabEnd.split(" ")[1] === element.EndTime.split(" ")[1]) {
                                 conflict = true;
-                                console.log("Lecture time conflict detected with" + elem.Course_Name);
+                                const conflictMessage = "Lecture time conflict detected with" + elem.Course_Name + '|' + elem.Code + '|' +element.Code;
+                                if (!updatedConflicts.includes(conflictMessage)) {
+                                updatedConflicts.push(conflictMessage);
+                            }
                             }
                             
                             if (element.LabStart.split(" ")[0].replace(":", "") <= elem.EndTime.split(" ")[0].replace(":", "") &&
@@ -91,46 +102,58 @@ const Choice = () => {
                                 element.LabStart.split(" ")[1] === elem.StartTime.split(" ")[1] &&
                                 element.LabEnd.split(" ")[1] === elem.EndTime.split(" ")[1]) {
                                 conflict = true;
-                                console.log("Lab time conflict detected with" + elem.Course_Name);
+                                const conflictMessage = "Lab time conflict detected with" + elem.Course_Name + '|' + elem.Code + '|' +element.Code;
+                                if (!updatedConflicts.includes(conflictMessage)) {
+                                updatedConflicts.push(conflictMessage);
+                            }
                             }
                         }
                     });
-                    if(conflict) {
-                        
-                    }
                     if (!conflict) {
                         updatedSchedule.push(element);
+
                     }
                 }
-            });
+            }); 
         } else {
-            // Remove the course if unchecked
             for (let i = 0; i < updatedSchedule.length; i++) {
                 if (updatedSchedule[i].Code === Code) {
-                    updatedSchedule.splice(i, 1);
-                    break;
+                  const removedCourse = updatedSchedule[i];
+                  updatedSchedule.splice(i, 1);
+        
+                  if (removedCourse) {
+                    updatedConflicts = updatedConflicts.filter(
+                      (msg) => !msg.includes(removedCourse.Code)
+                    );
+                  }
+        
+                  break;
                 }
             }
+
         }
-    
+
+        conflictMessages.forEach(msg => { 
+            if(msg.includes(Code)){
+                updatedConflicts = updatedConflicts.filter(
+                    (msg) => !msg.includes(Code)
+                  );
+            }
+
+        })
+            
+        
+
+
+        setConflictMessages(updatedConflicts);
         setmySchedule(updatedSchedule);
-        console.log(mySchedule);
+
+ 
+
     };
     
-    const [classDays, setclassDays] = useState([]);
-    const makeClass = () => {
-        const classes = [...mySchedule];
-        classes.forEach(elem => {
-            console.log(elem.Days + elem.Lab_Days)
-        })
-    }
-    const dayKey ={
-        'U':1,
-        'M':2,
-        'T':3,
-        'W':4,
-        'R':5
-    }
+
+
     const getDay = (day) =>{
         switch(day) {
             case 'U':
@@ -170,7 +193,6 @@ const Choice = () => {
     const isLab = (clasOBJ) => {
         const lab = clasOBJ.Lab_Days
         if(lab){
-            console.log(clasOBJ.Lab_Days)
             return <div className="course-input"
                             style={{
                             height:`${getLength(clasOBJ.LabStart, clasOBJ.LabEnd)}%`,
@@ -203,6 +225,20 @@ const Choice = () => {
                     ))}
               </div>
                 
+              <div className="conflict-container">
+                <h3>Conflict Messages</h3>
+                    {conflictMessages.length > 0 ? (
+                 <ul>
+                    {conflictMessages.map((msg, index) => (
+                    <li key={index}>{msg}</li>
+                    ))}
+                </ul>
+                ) : (
+                <p>No conflicts detected.</p>
+                )}
+                </div>
+
+
                 <div className="Choice-Container">
                     <input
                         type="text"
