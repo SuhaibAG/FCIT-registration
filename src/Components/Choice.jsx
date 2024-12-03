@@ -49,62 +49,71 @@ const Choice = () =>{
     
       const [mySchedule, setmySchedule] = useState([]);
 
-      const addToSchedule = (Code) =>{
-        const updatedSchedule = [...mySchedule]
-        courses.forEach(element => {
-          if (element.Code === Code && !mySchedule.includes(element)) {
-            let conflict = false;
-
-            mySchedule.forEach(elem => {
-                if (elem.Days.includes(element.Days) || 
-                    element.Days.includes(elem.Days) || 
-                    elem.Lab_Days === element.Lab_Days || 
-                    element.Days.includes(elem.Lab_Days) || 
-                    elem.Days.includes(element.Lab_Days)) {
+      const addToSchedule = (Code, isChecked) => {
+        const updatedSchedule = [...mySchedule];
+    
+        if (isChecked) {
+            // Add the course if checked
+            courses.forEach(element => {
+                if (element.Code === Code && !mySchedule.includes(element)) {
+                    let conflict = false;
+    
+                    mySchedule.forEach(elem => {
+                        if (elem.Days.includes(element.Days) || 
+                            element.Days.includes(elem.Days) || 
+                            elem.Lab_Days === element.Lab_Days || 
+                            element.Days.includes(elem.Lab_Days) || 
+                            elem.Days.includes(element.Lab_Days)) {
+                            
+                            if (elem.StartTime.split(" ")[0].replace(":", "") <= element.EndTime.split(" ")[0].replace(":", "") &&
+                                elem.EndTime.split(" ")[0].replace(":", "") >= element.StartTime.split(" ")[0].replace(":", "") &&
+                                elem.StartTime.split(" ")[1] === element.StartTime.split(" ")[1] &&
+                                elem.EndTime.split(" ")[1] === element.EndTime.split(" ")[1]) {
+                                conflict = true;
+                            }
+                            
+                            if (elem.LabStart.split(" ")[0].replace(":", "") <= element.LabEnd.split(" ")[0].replace(":", "") &&
+                                elem.LabEnd.split(" ")[0].replace(":", "") >= elem.LabStart.split(" ")[0].replace(":", "") &&
+                                elem.LabStart.split(" ")[1] === element.LabStart.split(" ")[1] &&
+                                elem.LabEnd.split(" ")[1] === element.LabEnd.split(" ")[1]) {
+                                conflict = true;
+                            }
+                            
+                            if (elem.LabStart.split(" ")[0].replace(":", "") <= element.EndTime.split(" ")[0].replace(":", "") &&
+                                elem.LabEnd.split(" ")[0].replace(":", "") >= element.StartTime.split(" ")[0].replace(":", "") &&
+                                elem.LabStart.split(" ")[1] === element.StartTime.split(" ")[1] &&
+                                elem.LabEnd.split(" ")[1] === element.EndTime.split(" ")[1]) {
+                                conflict = true;
+                            }
+                            
+                            if (element.LabStart.split(" ")[0].replace(":", "") <= elem.EndTime.split(" ")[0].replace(":", "") &&
+                                element.LabEnd.split(" ")[0].replace(":", "") >= elem.StartTime.split(" ")[0].replace(":", "") &&
+                                element.LabStart.split(" ")[1] === elem.StartTime.split(" ")[1] &&
+                                element.LabEnd.split(" ")[1] === elem.EndTime.split(" ")[1]) {
+                                conflict = true;
+                            }
+                        }
+                    });
                     
-                    if (elem.StartTime.split(" ")[0].replace(":", "") <= element.EndTime.split(" ")[0].replace(":", "") &&
-                        elem.EndTime.split(" ")[0].replace(":", "") >= element.StartTime.split(" ")[0].replace(":", "") &&
-                        elem.StartTime.split(" ")[1] === element.StartTime.split(" ")[1] &&
-                        elem.EndTime.split(" ")[1] === element.EndTime.split(" ")[1]) {
-                        conflict = true;
-                    }
-                    
-                    if (elem.LabStart.split(" ")[0].replace(":", "") <= element.LabEnd.split(" ")[0].replace(":", "") &&
-                        elem.LabEnd.split(" ")[0].replace(":", "") >= element.LabStart.split(" ")[0].replace(":", "") &&
-                        elem.LabStart.split(" ")[1] === element.LabStart.split(" ")[1] &&
-                        elem.LabEnd.split(" ")[1] === element.LabEnd.split(" ")[1]) {
-                        conflict = true;
-                    }
-                    
-                    if (elem.LabStart.split(" ")[0].replace(":", "") <= element.EndTime.split(" ")[0].replace(":", "") &&
-                        elem.LabEnd.split(" ")[0].replace(":", "") >= element.StartTime.split(" ")[0].replace(":", "") &&
-                        elem.LabStart.split(" ")[1] === element.StartTime.split(" ")[1] &&
-                        elem.LabEnd.split(" ")[1] === element.EndTime.split(" ")[1]) {
-                        conflict = true;
-                    }
-                    
-                    if (element.LabStart.split(" ")[0].replace(":", "") <= elem.EndTime.split(" ")[0].replace(":", "") &&
-                        element.LabEnd.split(" ")[0].replace(":", "") >= elem.StartTime.split(" ")[0].replace(":", "") &&
-                        element.LabStart.split(" ")[1] === elem.StartTime.split(" ")[1] &&
-                        element.LabEnd.split(" ")[1] === elem.EndTime.split(" ")[1]) {
-                        conflict = true;
+                    if (!conflict) {
+                        updatedSchedule.push(element);
                     }
                 }
             });
-            
-            if (!conflict) {
-              updatedSchedule.push(element);}
+        } else {
+            // Remove the course if unchecked
+            for (let i = 0; i < updatedSchedule.length; i++) {
+                if (updatedSchedule[i].Code === Code) {
+                    updatedSchedule.splice(i, 1);
+                    break;
+                }
+            }
         }
-          else if (element.Code === Code && updatedSchedule.includes(element)) {
-            //remove element
-            
-          }
-        });
-
-        setmySchedule(updatedSchedule)
-        console.log(mySchedule)
-      }
-
+    
+        setmySchedule(updatedSchedule);
+        console.log(mySchedule);
+    };
+    
     return(
             <div className="Choice-Container">
                 <input
@@ -119,11 +128,10 @@ const Choice = () =>{
                         <div className={c.Course_Name}>
                             <label>{c.Code} | {c.Course_Name}  | {c.Teacher}</label>
                             <input
-                            value={c.Code}
-                            type="checkbox"
-                            onChange={(e) => addToSchedule(e.target.value)}>
+                              value={c.Code}
+                              type="checkbox"
+                              onChange={(e) => addToSchedule(e.target.value, e.target.checked)}>
                             </input>
-
                         </div>
                     ))}
                 </div>
