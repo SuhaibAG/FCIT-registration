@@ -12,3 +12,10 @@ input{
     margin-bottom: 1vw;
     margin-right: 2vw;
 }
+.course-input{
+    position:absolute;
+    background-color: azure;
+    
+    width: 10vw;
+    height: 3vh;
+}

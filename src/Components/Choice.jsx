@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import './Choice.css'
-
+import Schedule from "./Schedule";
 import courseCSV from './courses.csv'
 import Papa from 'papaparse'
 
@@ -98,7 +98,9 @@ const Choice = () =>{
                             }
                         }
                     });
-                    
+                    if(conflict) {
+                        
+                    }
                     if (!conflict) {
                         updatedSchedule.push(element);
                     }
@@ -118,29 +120,57 @@ const Choice = () =>{
         console.log(mySchedule);
     };
     
+    const [classDays, setclassDays] = useState([]);
+
+    const makeClass = () => {
+        const classes = [...mySchedule];
+
+        classes.forEach(elem => {
+
+        })
+    }
+
+
     return(
-            <div className="Choice-Container">
-                <input
-                    type="text"
-                    value={courseName}
-                    onChange={(e) => setCourseName(e.target.value)}
-                >
-                </input>
-                <button onClick={SearchCourse}>Search for Course</button>
-                <div>    
-                    {courseOptions.map((c, Index) => (
-                        <div className={c.Course_Name}>
-                            <label>{c.Code} | {c.Course_Name}  | {c.Teacher}</label>
-                            <input
-                              value={c.Code}
-                              type="checkbox"
-                              onChange={(e) => addToSchedule(e.target.value, e.target.checked)}>
-                            </input>
-                        </div>
-                    ))}
+            <div>
+
+                <div className="course-input">
+                    {}
                 </div>
 
 
+
+                <Schedule/>
+
+
+
+
+
+
+
+
+                <div className="Choice-Container">
+                    <input
+                        type="text"
+                        value={courseName}
+                        onChange={(e) => setCourseName(e.target.value)}
+                    >
+                    </input>
+                    <button onClick={SearchCourse}>Search for Course</button>
+                    <div>    
+                        {courseOptions.map((c, Index) => (
+                            <div className={c.Course_Name}>
+                                <label>{c.Code} | {c.Course_Name}  | {c.Teacher}</label>
+                                <input
+                                value={c.Code}
+                                type="checkbox"
+                                onChange={(e) => addToSchedule(e.target.value, e.target.checked)}>
+                                </input>
+                            </div>
+                        ))}
+                    </div>
+
+                </div>
 
             </div>
     )
