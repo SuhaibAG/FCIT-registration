@@ -31,6 +31,7 @@ const Choice = () =>{
       //this function takes in the course name from the input
       const [courseOptions, setCourseOptions] = useState([]);
       const [courseName, setCourseName] = useState("");
+
       const SearchCourse = () =>{
       const updatedCourseOptions = [...courseOptions]
       courses.forEach(element => {
@@ -41,7 +42,7 @@ const Choice = () =>{
             } 
         });
         setCourseOptions(updatedCourseOptions)
-        console.log(courseOptions)
+        console.log(updatedCourseOptions)
       }
     
       const [mySchedule, setmySchedule] = useState([]);
@@ -156,6 +157,7 @@ const Choice = () =>{
                 return 5
             }
         }
+
     const getStart = (start) =>{
             const time =  start.split(" ")[0].replace(":", "")
             const hours = Math.floor(time / 100)
@@ -181,6 +183,7 @@ const Choice = () =>{
                     
         }
     }   
+
     return(
             <div className="parent">
                 <div className="schedule-container">
@@ -193,7 +196,9 @@ const Choice = () =>{
                                 height:`${getLength(clasOBJ.StartTime, clasOBJ.EndTime)}%`,
                                 top: `${getStart(clasOBJ.StartTime) * 6.23}%`, 
                                 left: `${getDay(day)}%`, 
-                              }}>
+                              }
+                                
+                              }>
                                 {clasOBJ.Course_Name}
                             </div>
                         ))}
