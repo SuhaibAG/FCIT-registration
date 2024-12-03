@@ -25,6 +25,7 @@ const Choice = () => {
       
       const ClearCourses = () => {
         setCourseOptions([]);
+        setmySchedule([])
         setCourseName("");
       };
       
