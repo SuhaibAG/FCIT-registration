@@ -140,15 +140,15 @@ const Choice = () =>{
     const getDay = (day) =>{
         switch(day) {
             case 'U':
-              return 17.66;
+              return 16.66;
             case 'M':
-              return 33.8;
+              return 33.2;
             case 'T':
               return 50;
             case 'W':
-              return 66.3;
+              return 66.66;
             case 'R':
-              return 82.3;
+              return 83.22;
             default:
               return null;
           }
@@ -157,7 +157,7 @@ const Choice = () =>{
     const getLength = (start, end) =>{
             const length =  end.split(" ")[0].replace(":", "") - start.split(" ")[0].replace(":", "") 
             if(length == 50){
-                return 2;
+                return 3;
             }
             else if(length == 120){
                 return 5
@@ -170,28 +170,35 @@ const Choice = () =>{
             const minutes = time % 100           
             const decimalMinutes = minutes / 60
 
-            
-            switch(hours + decimalMinutes) {
-                case 8.00:
-                  return 8;
-                case 9:
-                  return 14;
-                case 'T':
-                  return 50;
-                case 'W':
-                  return 66.3;
-                case 'R':
-                  return 82.3;
-                default:
-                  return null;
-              }
+            if (start.includes('PM') &&!start.includes('12')){
+                return (hours + decimalMinutes + 5)
+            }
+            return (hours + decimalMinutes - 7)
+    }
+
+
+    const isLab = (clasOBJ) => {
+        const lab = clasOBJ.Lab_Days
+        if(lab){
+            console.log(clasOBJ.Lab_Days)
+            return <div className="course-input"
+                            style={{
+                            height:`${getLength(clasOBJ.LabStart, clasOBJ.LabEnd)}%`,
+                            top: `${getStart(clasOBJ.LabStart) * 6.29}%`, 
+                            left: `${getDay(clasOBJ.Lab_Days)}%`, 
+                            }}>
+                            {clasOBJ.Course_Name}
+                    </div>
+                    
         }
-        
-        const positions = [3.8, ]
+    }   
+
+
     return(
             <div className="parent">
                 <div className="schedule-container">
                     <Schedule/>
+
                     {mySchedule.map((clasOBJ, index) =>(
                         <div>
 
@@ -199,13 +206,14 @@ const Choice = () =>{
                             <div className="course-input"
                             style={{
                                 height:`${getLength(clasOBJ.StartTime, clasOBJ.EndTime)}%`,
-                                top: `${getStart(clasOBJ.StartTime)}%`, 
+                                top: `${getStart(clasOBJ.StartTime) * 6.23}%`, 
                                 left: `${getDay(day)}%`, 
                               }}>
                                 {clasOBJ.Course_Name}
                             </div>
                         ))}
-                        
+
+                        {isLab(clasOBJ)}
                         </div>
 
 

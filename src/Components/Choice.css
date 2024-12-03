@@ -14,10 +14,10 @@ input{
 }
 .course-input{
     position: absolute;
-    width: 13.3%;
+    width: 15%;
     background-color: rgba(0, 0, 255, 0.3);
     color: white;
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
     cursor: pointer;
     z-index: 1;
@@ -27,18 +27,11 @@ input{
     margin: 0;
     }
 .schedule-container{
+    display: flex;              /* Enable grid layout */
+    grid-template-columns: repeat(6, 1fr);
     position: relative;
-    flex-wrap: wrap;
-    display: flex;
-    justify-content: center;  
-    align-items: flex-start;  
     width: 80%;
-    height: 100%;  
-    padding: 10px;  
-    box-sizing: border-box; 
+    height: 70%;
     margin: auto;
-}
-.parent{
-    height: 70vh;
-    
+    overflow: hidden;
 }

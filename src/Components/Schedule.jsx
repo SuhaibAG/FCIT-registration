@@ -3,7 +3,7 @@ const Schedule = () =>{
     const days = ['','Sun','Mon', 'Tue', 'Wed','Thr'];
     const number_rows = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
     return(
-        <div className='con'>
+        <div>
             <table>
                 <thead>
                 <tr>
