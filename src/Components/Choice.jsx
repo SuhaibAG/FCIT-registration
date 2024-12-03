@@ -126,21 +126,26 @@ const Choice = () =>{
         const classes = [...mySchedule];
 
         classes.forEach(elem => {
-
+            console.log(elem.Days + elem.Lab_Days)
         })
     }
 
 
     return(
             <div>
-
-                <div className="course-input">
-                    {}
-                </div>
-
-
-
                 <Schedule/>
+                {mySchedule.map((clasOBJ, index) =>(
+                    <div className="course-input">
+                    cpit345
+                    </div>
+
+
+                ))}
+                
+
+
+
+                
 
 
 
