@@ -22,33 +22,29 @@ const Choice = () =>{
             });
           });
       }, []);
-
-
+      
+      const ClearCourses = () => {
+        setCourseOptions([]);
+        setCourseName("");
+      };
+      
       //this function takes in the course name from the input
       const [courseOptions, setCourseOptions] = useState([]);
       const [courseName, setCourseName] = useState("");
-
       const SearchCourse = () =>{
       const updatedCourseOptions = [...courseOptions]
-
       courses.forEach(element => {
           const cleanCSVName = element.Course_Name.replace(/\s+/g, "").toLowerCase();
           const cleanCourseName = courseName.replace(/\s+/g, "").toLowerCase();
-
             if (cleanCSVName.includes(cleanCourseName) && !updatedCourseOptions.includes(element)) {
                 updatedCourseOptions.push(element)
             } 
         });
-
-
         setCourseOptions(updatedCourseOptions)
         console.log(courseOptions)
       }
-      
-
     
       const [mySchedule, setmySchedule] = useState([]);
-
       const addToSchedule = (Code, isChecked) => {
         const updatedSchedule = [...mySchedule];
     
@@ -121,15 +117,12 @@ const Choice = () =>{
     };
     
     const [classDays, setclassDays] = useState([]);
-
     const makeClass = () => {
         const classes = [...mySchedule];
-
         classes.forEach(elem => {
             console.log(elem.Days + elem.Lab_Days)
         })
     }
-
     const dayKey ={
         'U':1,
         'M':2,
@@ -162,21 +155,17 @@ const Choice = () =>{
             else if(length == 120){
                 return 5
             }
-
         }
     const getStart = (start) =>{
             const time =  start.split(" ")[0].replace(":", "")
             const hours = Math.floor(time / 100)
             const minutes = time % 100           
             const decimalMinutes = minutes / 60
-
             if (start.includes('PM') &&!start.includes('12')){
                 return (hours + decimalMinutes + 5)
             }
             return (hours + decimalMinutes - 7)
     }
-
-
     const isLab = (clasOBJ) => {
         const lab = clasOBJ.Lab_Days
         if(lab){
@@ -192,16 +181,12 @@ const Choice = () =>{
                     
         }
     }   
-
-
     return(
             <div className="parent">
                 <div className="schedule-container">
                     <Schedule/>
-
                     {mySchedule.map((clasOBJ, index) =>(
                         <div>
-
                         {clasOBJ.Days.split("").map((day, ind) =>(
                             <div className="course-input"
                             style={{
@@ -212,26 +197,11 @@ const Choice = () =>{
                                 {clasOBJ.Course_Name}
                             </div>
                         ))}
-
                         {isLab(clasOBJ)}
                         </div>
-
-
                     ))}
-               </div>
+              </div>
                 
-
-
-
-                
-
-
-
-
-
-
-
-
                 <div className="Choice-Container">
                     <input
                         type="text"
@@ -240,6 +210,7 @@ const Choice = () =>{
                     >
                     </input>
                     <button onClick={SearchCourse}>Search for Course</button>
+                    <button onClick={ClearCourses}>Clear Courses</button>
                     <div>    
                         {courseOptions.map((c, Index) => (
                             <div className={c.Course_Name}>
@@ -252,9 +223,7 @@ const Choice = () =>{
                             </div>
                         ))}
                     </div>
-
                 </div>
-
             </div>
     )
 }
