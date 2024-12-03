@@ -130,17 +130,73 @@ const Choice = () =>{
         })
     }
 
+    const dayKey ={
+        'U':1,
+        'M':2,
+        'T':3,
+        'W':4,
+        'R':5
+    }
+    const getDay = (day) =>{
+        switch(day) {
+            case 'U':
+              return 17.66;
+            case 'M':
+              return 33.8;
+            case 'T':
+              return 50;
+            case 'W':
+              return 66.3;
+            case 'R':
+              return 82.3;
+            default:
+              return null;
+          }
+    }
+    
+    const getLength = (start, end) =>{
+            const length =  end.split(" ")[0].replace(":", "") - start.split(" ")[0].replace(":", "") 
+            if(length == 50){
+                return 4;
+            }
+            else if(length === 120){
+                return 15
+            }
+
+        }
+    const getStart = (start) =>{
+            const time =  start.split(" ")[0].replace(":", "")
+            const hours = Math.floor(time / 100)
+            const minutes = time % 100           
+            const decimalMinutes = minutes / 60
+
+            return hours + decimalMinutes - 7
+
+        }
 
     return(
             <div>
-                <Schedule/>
-                {mySchedule.map((clasOBJ, index) =>(
-                    <div className="course-input">
-                    cpit345
-                    </div>
+                <div className="schedule-container">
+                    <Schedule/>
+                    {mySchedule.map((clasOBJ, index) =>(
+                        <div>
+
+                        {clasOBJ.Days.split("").map((day, ind) =>(
+                            <div className="course-input"
+                            style={{
+                                height:`${getLength(clasOBJ.StartTime, clasOBJ.EndTime) * 0.1}vh`,
+                                top: `${getStart(clasOBJ.StartTime) * 3.3}vh`, 
+                                left: `${getDay(day)}%`, 
+                              }}>
+                                {clasOBJ.Course_Name +getLength(clasOBJ.StartTime, clasOBJ.EndTime)}
+                            </div>
+                        ))}
+                        
+                        </div>
 
 
-                ))}
+                    ))}
+               </div>
                 
 
 
