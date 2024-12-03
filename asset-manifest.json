@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/FCIT-registration/static/css/main.971d4466.css",
+    "main.js": "/FCIT-registration/static/js/main.8f8b880e.js",
+    "static/js/453.b4c4cabd.chunk.js": "/FCIT-registration/static/js/453.b4c4cabd.chunk.js",
+    "static/media/courses.csv": "/FCIT-registration/static/media/courses.b2d7a0fa69ff9b749745.csv",
+    "index.html": "/FCIT-registration/index.html",
+    "main.971d4466.css.map": "/FCIT-registration/static/css/main.971d4466.css.map",
+    "main.8f8b880e.js.map": "/FCIT-registration/static/js/main.8f8b880e.js.map",
+    "453.b4c4cabd.chunk.js.map": "/FCIT-registration/static/js/453.b4c4cabd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.971d4466.css",
+    "static/js/main.8f8b880e.js"
+  ]
+}
