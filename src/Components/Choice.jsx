@@ -52,20 +52,52 @@ const Choice = () =>{
       const addToSchedule = (Code) =>{
         const updatedSchedule = [...mySchedule]
         courses.forEach(element => {
-          if(element.Code === Code && !mySchedule.includes(element)){
-            mySchedule.forEach(elem =>{
-              if(elem.Days.includes(element.Days) || element.Days.includes(elem.Days)){
-                if(){
-                  
-                }
-              }
+          if (element.Code === Code && !mySchedule.includes(element)) {
+            let conflict = false;
 
-            })
-          
-          }
+            mySchedule.forEach(elem => {
+                if (elem.Days.includes(element.Days) || 
+                    element.Days.includes(elem.Days) || 
+                    elem.Lab_Days === element.Lab_Days || 
+                    element.Days.includes(elem.Lab_Days) || 
+                    elem.Days.includes(element.Lab_Days)) {
+                    
+                    if (elem.StartTime.split(" ")[0].replace(":", "") <= element.EndTime.split(" ")[0].replace(":", "") &&
+                        elem.EndTime.split(" ")[0].replace(":", "") >= element.StartTime.split(" ")[0].replace(":", "") &&
+                        elem.StartTime.split(" ")[1] === element.StartTime.split(" ")[1] &&
+                        elem.EndTime.split(" ")[1] === element.EndTime.split(" ")[1]) {
+                        conflict = true;
+                    }
+                    
+                    if (elem.LabStart.split(" ")[0].replace(":", "") <= element.LabEnd.split(" ")[0].replace(":", "") &&
+                        elem.LabEnd.split(" ")[0].replace(":", "") >= element.LabStart.split(" ")[0].replace(":", "") &&
+                        elem.LabStart.split(" ")[1] === element.LabStart.split(" ")[1] &&
+                        elem.LabEnd.split(" ")[1] === element.LabEnd.split(" ")[1]) {
+                        conflict = true;
+                    }
+                    
+                    if (elem.LabStart.split(" ")[0].replace(":", "") <= element.EndTime.split(" ")[0].replace(":", "") &&
+                        elem.LabEnd.split(" ")[0].replace(":", "") >= element.StartTime.split(" ")[0].replace(":", "") &&
+                        elem.LabStart.split(" ")[1] === element.StartTime.split(" ")[1] &&
+                        elem.LabEnd.split(" ")[1] === element.EndTime.split(" ")[1]) {
+                        conflict = true;
+                    }
+                    
+                    if (element.LabStart.split(" ")[0].replace(":", "") <= elem.EndTime.split(" ")[0].replace(":", "") &&
+                        element.LabEnd.split(" ")[0].replace(":", "") >= elem.StartTime.split(" ")[0].replace(":", "") &&
+                        element.LabStart.split(" ")[1] === elem.StartTime.split(" ")[1] &&
+                        element.LabEnd.split(" ")[1] === elem.EndTime.split(" ")[1]) {
+                        conflict = true;
+                    }
+                }
+            });
+            
+            if (!conflict) {
+              updatedSchedule.push(element);}
+        }
           else if (element.Code === Code && updatedSchedule.includes(element)) {
             //remove element
-           updatedSchedule.push(element)
+            
           }
         });
 
