@@ -70,6 +70,7 @@ const Choice = () =>{
                                 elem.StartTime.split(" ")[1] === element.StartTime.split(" ")[1] &&
                                 elem.EndTime.split(" ")[1] === element.EndTime.split(" ")[1]) {
                                 conflict = true;
+                                console.log("Lecture time conflict detected with" + elem.Course_Name);
                             }
                             
                             if (elem.LabStart.split(" ")[0].replace(":", "") <= element.LabEnd.split(" ")[0].replace(":", "") &&
@@ -77,6 +78,7 @@ const Choice = () =>{
                                 elem.LabStart.split(" ")[1] === element.LabStart.split(" ")[1] &&
                                 elem.LabEnd.split(" ")[1] === element.LabEnd.split(" ")[1]) {
                                 conflict = true;
+                                console.log("Lab time conflict detected with" + elem.Course_Name);
                             }
                             
                             if (elem.LabStart.split(" ")[0].replace(":", "") <= element.EndTime.split(" ")[0].replace(":", "") &&
@@ -84,6 +86,7 @@ const Choice = () =>{
                                 elem.LabStart.split(" ")[1] === element.StartTime.split(" ")[1] &&
                                 elem.LabEnd.split(" ")[1] === element.EndTime.split(" ")[1]) {
                                 conflict = true;
+                                console.log("Lecture time conflict detected with" + elem.Course_Name);
                             }
                             
                             if (element.LabStart.split(" ")[0].replace(":", "") <= elem.EndTime.split(" ")[0].replace(":", "") &&
@@ -91,6 +94,7 @@ const Choice = () =>{
                                 element.LabStart.split(" ")[1] === elem.StartTime.split(" ")[1] &&
                                 element.LabEnd.split(" ")[1] === elem.EndTime.split(" ")[1]) {
                                 conflict = true;
+                                console.log("Lab time conflict detected with" + elem.Course_Name);
                             }
                         }
                     });
